@@ -39,6 +39,14 @@ captures/
 .idea/gradle.xml
 .idea/dictionaries
 .idea/libraries
+/captures
+.externalNativeBuild
+
+# OSX files
+.DS_Store
+
+# Windows thumbnail db
+Thumbs.db
 
 # Keystore files
 *.jks
