@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,6 +17,23 @@ import hu.ait.android.readinglistapp.R;
 import hu.ait.android.readinglistapp.data.Booklist;
 
 public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> {
+
+    private List<Booklist> booklistList;
+    private List<String> booklistKeys;
+    private Context context;
+    private String userId;
+    private int lastPosition = -1;
+    //private DatabaseReference booklistRef;
+
+    public ListsAdapter(Context context, String userId) {
+        this.context = context;
+        this.userId = userId;
+
+        booklistList = new ArrayList<Booklist>();
+        booklistKeys = new ArrayList<String>();
+
+        //booklistRef = FirebaseDatabase.getInstance().getReference();
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvListName;
@@ -30,14 +48,6 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
         }
     }
 
-    private List<Booklist> booklistList;
-    private Context context;
-    private int lastPosition = -1;
-
-    public ListsAdapter(List<Booklist> booklistList, Context context) {
-        this.booklistList = booklistList;
-        this.context = context;
-    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
@@ -49,7 +59,8 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-        viewHolder.tvListName.setText(booklistList.get(position).getListName());
+        Booklist booklist = booklistList.get(position);
+        viewHolder.tvListName.setText(booklist.getListName());
 
         viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +70,7 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
         });
         viewHolder.btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) { //change to tv OnClickListener TODO
                 /*
                 ((MainActivity) context).showEditBooklistActivity(
                         booklistList.get(viewHolder.getAdapterPosition()).getPlaceID(),
@@ -75,8 +86,9 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
         return booklistList.size();
     }
 
-    public void addBooklist(Booklist booklist) {
+    public void addBooklist(Booklist booklist, String key) {
         booklistList.add(booklist);
+        booklistKeys.add(key);
         notifyDataSetChanged();
     }
 
@@ -88,11 +100,21 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
 
     public void removeBooklist(int index) {
         /*
-        ((MainActivity)context).deleteBooklist(booklistList.get(index));
+        booklistRef.child("booklists").child(booklistKeys.get(index)).removeValue();
+        booklistKeys.remove(index);
         booklistList.remove(index);
         notifyItemRemoved(index);
         */
     }
+    /*public void removePostByKey(String key) {
+        int index = postKeys.indexOf(key);
+        if (index != -1) {
+            postList.remove(index);
+            postKeys.remove(index);
+            notifyItemRemoved(index);
+        }
+    }
+    */
 
     public void swapBooklists(int oldPosition, int newPosition) {
         if (oldPosition < newPosition) {
