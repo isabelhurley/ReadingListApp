@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,7 +26,7 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
     private Context context;
     private String userId;
     private int lastPosition = -1;
-    //private DatabaseReference booklistRef;
+    private DatabaseReference booklistRef;
 
     public ListsAdapter(Context context, String userId) {
         this.context = context;
@@ -32,7 +35,16 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
         booklistList = new ArrayList<Booklist>();
         booklistKeys = new ArrayList<String>();
 
-        //booklistRef = FirebaseDatabase.getInstance().getReference();
+        booklistRef = FirebaseDatabase.getInstance().getReference();
+    }
+
+    public ListsAdapter(Context context) {
+        this.context = context;
+
+        booklistList = new ArrayList<Booklist>();
+        booklistKeys = new ArrayList<String>();
+
+        booklistRef = FirebaseDatabase.getInstance().getReference();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -99,22 +111,22 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
     }
 
     public void removeBooklist(int index) {
-        /*
+
         booklistRef.child("booklists").child(booklistKeys.get(index)).removeValue();
         booklistKeys.remove(index);
         booklistList.remove(index);
         notifyItemRemoved(index);
-        */
+
     }
-    /*public void removePostByKey(String key) {
-        int index = postKeys.indexOf(key);
+    public void removeBooklistByKey(String key) {
+        int index = booklistKeys.indexOf(key);
         if (index != -1) {
-            postList.remove(index);
-            postKeys.remove(index);
+            booklistKeys.remove(index);
+            booklistList.remove(index);
             notifyItemRemoved(index);
         }
     }
-    */
+
 
     public void swapBooklists(int oldPosition, int newPosition) {
         if (oldPosition < newPosition) {

@@ -1,5 +1,6 @@
 package hu.ait.android.readinglistapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,7 +12,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import hu.ait.android.readinglistapp.ListsPackage.adapter.ListsAdapter;
+import hu.ait.android.readinglistapp.data.Booklist;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -28,19 +36,54 @@ public class MenuActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(MenuActivity.this, CreateBooklistActivity.class));
+                Snackbar.make(view, "Add a new booklist", Snackbar.LENGTH_LONG);
+
             }
         });
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewLists);
-        //adapter = new ListsAdapter(this, FirebaseAuth.getInstance().getCurrentUser().getUid);
+        adapter = new ListsAdapter(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        initBooklistListener();
+    }
+
+    private void initBooklistListener() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("booklists");
+        reference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                Booklist booklist = dataSnapshot.getValue(Booklist.class);
+                adapter.addBooklist(booklist, dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                adapter.removeBooklistByKey(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -49,6 +92,7 @@ public class MenuActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_menu, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
