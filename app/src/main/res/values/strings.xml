@@ -7,4 +7,5 @@
     <string name="logout">Logout</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="new_booklist">New Booklist</string>
 </resources>

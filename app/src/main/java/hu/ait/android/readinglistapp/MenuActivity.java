@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -59,7 +60,7 @@ public class MenuActivity extends AppCompatActivity {
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
+                Toast.makeText(MenuActivity.this, "made child", Toast.LENGTH_LONG).show();
                 Booklist booklist = dataSnapshot.getValue(Booklist.class);
                 adapter.addBooklist(booklist, dataSnapshot.getKey());
             }

@@ -9,6 +9,8 @@ public class Booklist {
         this.listName = listName;
     }
 
+    public Booklist() {}
+
     public String getListName() {
         return listName;
     }
