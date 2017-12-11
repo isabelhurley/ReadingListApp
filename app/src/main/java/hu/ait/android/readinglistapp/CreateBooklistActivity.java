@@ -13,12 +13,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import hu.ait.android.readinglistapp.data.Booklist;
+import hu.ait.android.readinglistapp.data.User;
 
 public class CreateBooklistActivity extends AppCompatActivity {
 
@@ -26,6 +28,10 @@ public class CreateBooklistActivity extends AppCompatActivity {
     EditText etNewList;
     @BindView(R.id.ivAddNewList)
     ImageView ivAddNewList;
+
+    private String currUserId = LoginActivity.getCurrUserId();
+    private DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("users")
+            .child(currUserId).child("booklists");
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,7 +43,7 @@ public class CreateBooklistActivity extends AppCompatActivity {
 
     @OnClick(R.id.ivAddNewList)
     void addListClick() {
-        String key = FirebaseDatabase.getInstance().getReference().child("booklists").push().getKey();
+        String key = databaseRef.push().getKey();
         String text = etNewList.getText().toString();
         if (TextUtils.isEmpty(text)) {
             Toast.makeText(CreateBooklistActivity.this, "No Booklist added", Toast.LENGTH_SHORT).show();
@@ -45,15 +51,13 @@ public class CreateBooklistActivity extends AppCompatActivity {
         }
         Booklist newBooklist = new Booklist(text);
 
-        FirebaseDatabase.getInstance()
-                .getReference()
-                .child("booklists")
+        databaseRef
                 .child(key)
                 .setValue(newBooklist)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                //Toast.makeText(CreateBooklistActivity.this, "Booklist created", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CreateBooklistActivity.this, "Booklist created", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });

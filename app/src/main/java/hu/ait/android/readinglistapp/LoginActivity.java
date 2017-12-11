@@ -16,10 +16,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import hu.ait.android.readinglistapp.data.User;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,6 +33,10 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
+    private DatabaseReference databaseReference;
+    private static String currUserId;
+    public static final String CURR_USER_ID = "currUserId";
+    public static final String USERS = "users";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         firebaseAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     @OnClick(R.id.btnRegister)
@@ -60,15 +68,16 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser fbUser = task.getResult().getUser();
 
                             fbUser.updateProfile(
-                                    new UserProfileChangeRequest.Builder().
-                                            setDisplayName(usernameFromEmail(fbUser.getEmail())).build()
+                                    new UserProfileChangeRequest.Builder()
+                                            .setDisplayName(usernameFromEmail(fbUser.getEmail())).build()
                             );
-
+                            User newUser = new User(fbUser.getUid(), fbUser.getDisplayName(), fbUser.getEmail());
+                            databaseReference.child(USERS).child(fbUser.getUid()).setValue(newUser);
 
                             Toast.makeText(LoginActivity.this,
                                     "Registration ok", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(LoginActivity.this, "Error: "+
+                            Toast.makeText(LoginActivity.this, "Error: " +
                                     task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -94,8 +103,11 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (task.isSuccessful()) {
                     // open messages Activity
-                    startActivity(new Intent(LoginActivity.this,
-                            MenuActivity.class));
+                    currUserId = task.getResult().getUser().getUid();
+                    Intent startMenu = new Intent(LoginActivity.this, MenuActivity.class);
+                    startMenu.putExtra(CURR_USER_ID, currUserId);
+                    startActivity(startMenu);
+                    finish();
 
                 } else {
                     Toast.makeText(LoginActivity.this,
@@ -148,6 +160,10 @@ public class LoginActivity extends AppCompatActivity {
         } else {
             return email;
         }
+    }
+
+    public static String getCurrUserId() {
+        return currUserId;
     }
 
 }
