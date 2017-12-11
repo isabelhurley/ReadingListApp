@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import hu.ait.android.readinglistapp.ListsPackage.adapter.ListsAdapter;
+import hu.ait.android.readinglistapp.ListsPackage.adapter.LoadBooksAdapter;
 import hu.ait.android.readinglistapp.data.Booklist;
 import hu.ait.android.readinglistapp.data.User;
 
@@ -51,9 +52,9 @@ public class MenuActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 startActivity(new Intent(MenuActivity.this, CreateBooklistActivity.class));
                 Snackbar.make(view, "Add a new booklist", Snackbar.LENGTH_LONG);
-
             }
         });
 
