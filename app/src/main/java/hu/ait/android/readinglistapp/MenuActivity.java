@@ -11,18 +11,40 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import hu.ait.android.readinglistapp.ListsPackage.adapter.ListsAdapter;
 import hu.ait.android.readinglistapp.ListsPackage.adapter.LoadBooksAdapter;
+import hu.ait.android.readinglistapp.data.Booklist;
+import hu.ait.android.readinglistapp.data.User;
 
 public class MenuActivity extends AppCompatActivity {
 
+    public static final String CURR_USER_ID = "currUserId";
+    public static final String BOOKLISTS = "booklists";
+    public static final String USERS = "users";
+
     private ListsAdapter adapter;
+    private String currUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        if (getIntent().hasExtra(CURR_USER_ID)) {
+            currUserId = getIntent().getStringExtra(CURR_USER_ID);
+        } else {
+            Toast.makeText(MenuActivity.this, R.string.no_currUserId, Toast.LENGTH_SHORT).show();
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -31,25 +53,54 @@ public class MenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-
-
-                // START THE LOAD BOOKS ACTIVITY
-                Intent intent = new Intent(MenuActivity.this, LoadBooksActivity.class);
-                startActivity(intent);
-
-
-
+                startActivity(new Intent(MenuActivity.this, CreateBooklistActivity.class));
+                Snackbar.make(view, "Add a new booklist", Snackbar.LENGTH_LONG);
             }
         });
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewLists);
-        //adapter = new ListsAdapter(this, FirebaseAuth.getInstance().getCurrentUser().getUid);
+        adapter = new ListsAdapter(this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        initBooklistListener();
+    }
+
+    private void initBooklistListener() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(USERS)
+                .child(currUserId).child(BOOKLISTS);
+        reference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                Toast.makeText(MenuActivity.this, "made child", Toast.LENGTH_LONG).show();
+                Booklist booklist = dataSnapshot.getValue(Booklist.class);
+                adapter.addBooklist(booklist, dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                adapter.removeBooklistByKey(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -58,6 +109,7 @@ public class MenuActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_menu, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -68,6 +120,9 @@ public class MenuActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(MenuActivity.this, LoginActivity.class));
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
