@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -118,6 +119,9 @@ public class MenuActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(MenuActivity.this, LoginActivity.class));
+            finish();
             return true;
         }
         return super.onOptionsItemSelected(item);
