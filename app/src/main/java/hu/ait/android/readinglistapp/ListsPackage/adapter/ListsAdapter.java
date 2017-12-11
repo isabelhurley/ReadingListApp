@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import butterknife.OnClick;
 import hu.ait.android.readinglistapp.R;
 import hu.ait.android.readinglistapp.data.Booklist;
 
@@ -58,6 +59,7 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
             btnDelete = (Button) itemView.findViewById(R.id.btnDelete);
             btnEdit = (Button) itemView.findViewById(R.id.btnEdit);
         }
+
     }
 
 
@@ -77,7 +79,7 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
         viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //removeBooklist(viewHolder.getAdapterPosition());
+                removeBooklist(viewHolder.getAdapterPosition());
             }
         });
         viewHolder.btnEdit.setOnClickListener(new View.OnClickListener() {

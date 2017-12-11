@@ -21,15 +21,28 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import hu.ait.android.readinglistapp.ListsPackage.adapter.ListsAdapter;
 import hu.ait.android.readinglistapp.data.Booklist;
+import hu.ait.android.readinglistapp.data.User;
 
 public class MenuActivity extends AppCompatActivity {
 
+    public static final String CURR_USER_ID = "currUserId";
+    public static final String BOOKLISTS = "booklists";
+    public static final String USERS = "users";
+
     private ListsAdapter adapter;
+    private String currUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+
+        if (getIntent().hasExtra(CURR_USER_ID)) {
+            currUserId = getIntent().getStringExtra(CURR_USER_ID);
+        } else {
+            Toast.makeText(MenuActivity.this, R.string.no_currUserId, Toast.LENGTH_SHORT).show();
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -56,7 +69,8 @@ public class MenuActivity extends AppCompatActivity {
     }
 
     private void initBooklistListener() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("booklists");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference(USERS)
+                .child(currUserId).child(BOOKLISTS);
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
