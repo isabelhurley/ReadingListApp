@@ -59,7 +59,7 @@ public class MenuActivity extends AppCompatActivity {
         });
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewLists);
-        adapter = new ListsAdapter(this);
+        adapter = new ListsAdapter(this, currUserId);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
@@ -126,5 +126,12 @@ public class MenuActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startEditBooklistActivity(String booklistKey) {
+        Intent intentEditBooklist = new Intent(MenuActivity.this, EditBooklistActivity.class);
+        intentEditBooklist.putExtra("booklistKey", booklistKey);
+        startActivity(intentEditBooklist);
+
     }
 }
