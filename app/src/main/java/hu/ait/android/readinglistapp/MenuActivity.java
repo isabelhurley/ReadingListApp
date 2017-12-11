@@ -1,5 +1,6 @@
 package hu.ait.android.readinglistapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import hu.ait.android.readinglistapp.ListsPackage.adapter.ListsAdapter;
+import hu.ait.android.readinglistapp.ListsPackage.adapter.LoadBooksAdapter;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -28,8 +30,15 @@ public class MenuActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+
+
+
+                // START THE LOAD BOOKS ACTIVITY
+                Intent intent = new Intent(MenuActivity.this, LoadBooksActivity.class);
+                startActivity(intent);
+
+
+
             }
         });
 
