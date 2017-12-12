@@ -1,51 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary">
-
-    <TextView
-        android:id="@+id/tvListName"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:elegantTextHeight="true"
-        android:paddingLeft="10dp"
-        android:paddingStart="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"/>
+    android:layout_gravity="center"
+    android:layout_margin="5dp">
 
 
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/delete"
-        android:layout_toLeftOf="@+id/ivEditBooklist"
-        android:layout_toStartOf="@+id/ivEditBooklist"
-        android:visibility="gone"/>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/btnEdit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/edit"
-        android:layout_toLeftOf="@+id/btnDelete"
-        android:layout_toStartOf="@+id/btnDelete"
-        android:paddingRight="10dp"
-        android:paddingEnd="10dp"
-        android:visibility="gone"/>
+        <TextView
+            android:id="@+id/tvListName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:elegantTextHeight="true"
+            android:paddingLeft="10dp"
+            android:paddingStart="10dp"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/ivEditBooklist"
-        android:src="@drawable/ic_arrow_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_centerVertical="true"
-        android:clickable="true"
-        android:onClick="editBooklistClicked"/>
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/ivEditBooklist"
+            android:layout_toStartOf="@+id/ivEditBooklist"
+            android:text="@string/delete"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/btnDelete"
+            android:layout_toStartOf="@+id/btnDelete"
+            android:paddingEnd="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/edit"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/ivEditBooklist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:onClick="editBooklistClicked"
+            android:src="@drawable/ic_arrow_right" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
