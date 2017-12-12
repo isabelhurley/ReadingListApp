@@ -4,10 +4,21 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import hu.ait.android.readinglistapp.ListsPackage.adapter.BooksAdapter;
+
 public class EditBooklistActivity extends AppCompatActivity {
+
+    public static final String CURR_USER_ID = "currUserId";
+    public static final String BOOKLISTS = "booklists";
+    public static final String USERS = "users";
+
+    private BooksAdapter adapter;
+    private String currUserId;
+    private String currListId;
 
     private TextView mTextMessage;
 
@@ -40,6 +51,9 @@ public class EditBooklistActivity extends AppCompatActivity {
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerViewBookList);
+        adapter = new BooksAdapter(this, currUserId, currListId);
     }
 
 }
