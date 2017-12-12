@@ -28,6 +28,7 @@ import hu.ait.android.readinglistapp.data.User;
 public class MenuActivity extends AppCompatActivity {
 
     public static final String CURR_USER_ID = "currUserId";
+    public static final String CURR_LIST_ID = "currListId";
     public static final String BOOKLISTS = "booklists";
     public static final String USERS = "users";
 
@@ -131,7 +132,8 @@ public class MenuActivity extends AppCompatActivity {
 
     public void startEditBooklistActivity(String booklistKey) {
         Intent intentEditBooklist = new Intent(MenuActivity.this, EditBooklistActivity.class);
-        intentEditBooklist.putExtra("booklistKey", booklistKey);
+        intentEditBooklist.putExtra(CURR_USER_ID, currUserId);
+        intentEditBooklist.putExtra(CURR_LIST_ID, booklistKey);
         startActivity(intentEditBooklist);
 
     }
