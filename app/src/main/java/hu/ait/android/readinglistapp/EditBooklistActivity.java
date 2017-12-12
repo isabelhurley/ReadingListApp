@@ -120,10 +120,10 @@ public class EditBooklistActivity extends AppCompatActivity {
     }
 
     public void startSelectAddMethodActivity() {
-        Intent intentEditBooklist = new Intent(EditBooklistActivity.this, SelectAddMethodActivity.class);
-        intentEditBooklist.putExtra(CURR_USER_ID, currUserId);
-        intentEditBooklist.putExtra(CURR_LIST_ID, currListId);
-        startActivity(intentEditBooklist);
+        Intent intentSelectAddMethod = new Intent(EditBooklistActivity.this, SelectAddMethodActivity.class);
+        intentSelectAddMethod.putExtra(CURR_USER_ID, currUserId);
+        intentSelectAddMethod.putExtra(CURR_LIST_ID, currListId);
+        startActivity(intentSelectAddMethod);
 
     }
 

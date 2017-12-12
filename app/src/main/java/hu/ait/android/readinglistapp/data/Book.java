@@ -7,6 +7,13 @@ public class Book {
     private String desc;
     private String url;
 
+    public Book() {
+        this.title = "";
+        this.author = "";
+        this.desc = "";
+        this.url = "";
+    }
+
     public Book(String title, String author, String desc) {
         this.title = title;
         this.author = author;
