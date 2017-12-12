@@ -37,5 +37,9 @@
             android:name=".EditBooklistActivity"
             android:label="@string/title_activity_edit_booklist"/>
         <activity android:name=".LoadBooksActivity"/>
+        <activity
+            android:name=".SelectAddMethodActivity"
+            android:label="@string/title_activity_select_method"
+            android:theme="@style/Theme.AppCompat.Dialog"></activity>
     </application>
 </manifest>
