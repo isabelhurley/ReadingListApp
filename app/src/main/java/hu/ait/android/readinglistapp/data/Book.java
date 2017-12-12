@@ -5,11 +5,20 @@ public class Book {
     private String title;
     private String author;
     private String desc;
+    private String url;
 
     public Book(String title, String author, String desc) {
         this.title = title;
         this.author = author;
         this.desc = desc;
+        this.url = "";
+    }
+
+    public Book(String title, String author, String desc, String picUrl) {
+        this.title = title;
+        this.author = author;
+        this.desc = desc;
+        this.url = picUrl;
     }
 
     public String getTitle() {
@@ -34,5 +43,9 @@ public class Book {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }
