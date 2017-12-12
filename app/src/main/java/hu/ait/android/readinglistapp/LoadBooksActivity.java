@@ -87,7 +87,8 @@ public class LoadBooksActivity extends AppCompatActivity {
         while (i < 10 && i < response.body().getItems().size()) {
             Book book = new Book(response.body().getItems().get(i).getVolumeInfo().getTitle(),
                     response.body().getItems().get(i).getVolumeInfo().getAuthors().get(0),
-                    response.body().getItems().get(i).getVolumeInfo().getDescription());
+                    response.body().getItems().get(i).getVolumeInfo().getDescription(),
+                    response.body().getItems().get(i).getVolumeInfo().getImageLinks().getSmallThumbnail());
 
             bookList.add(book);
             i++;

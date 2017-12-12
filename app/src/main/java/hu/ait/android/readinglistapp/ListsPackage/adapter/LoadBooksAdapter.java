@@ -9,10 +9,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import hu.ait.android.readinglistapp.LoadBooksActivity;
 import hu.ait.android.readinglistapp.R;
 import hu.ait.android.readinglistapp.data.Book;
 import hu.ait.android.readinglistapp.data.Booklist;
@@ -51,16 +54,17 @@ public class LoadBooksAdapter extends RecyclerView.Adapter<LoadBooksAdapter.View
         holder.tvAuthor.setText(book.getAuthor());
         holder.tvDesc.setText(book.getDesc());
 
-        // set picture!! TODO
-        holder.ivCover.setImageResource(R.mipmap.ic_launcher);
-
+        if (book.getUrl().equals("")) {
+            holder.ivCover.setImageResource(R.drawable.book);
+        } else {
+            Glide.with(context).load(book.getUrl()).into(holder.ivCover);
+        }
     }
 
     @Override
     public int getItemCount() {
         return bookList.size();
     }
-
 
     public void addBook(Book book, String key) {
         bookList.add(book);
