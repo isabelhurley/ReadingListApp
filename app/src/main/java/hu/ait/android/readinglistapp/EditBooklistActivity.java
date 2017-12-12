@@ -1,5 +1,6 @@
 package hu.ait.android.readinglistapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -24,6 +25,7 @@ public class EditBooklistActivity extends AppCompatActivity {
 
     public static final String CURR_USER_ID = "currUserId";
     public static final String CURR_LIST_ID = "currListId";
+    public static final String BOOKS = "books";
     public static final String BOOKLISTS = "booklists";
     public static final String USERS = "users";
 
@@ -39,14 +41,12 @@ public class EditBooklistActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                case R.id.navigation_add:
+                    mTextMessage.setText("Add book");
+                    startSelectAddMethodActivity();
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+                case R.id.navigation_delete:
+                    mTextMessage.setText("Delete list");
                     return true;
             }
             return false;
@@ -89,11 +89,10 @@ public class EditBooklistActivity extends AppCompatActivity {
 
     private void initBookListener() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference(USERS)
-                .child(currUserId).child(BOOKLISTS).child(currListId);
+                .child(currUserId).child(BOOKLISTS).child(currListId).child(BOOKS);
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Toast.makeText(EditBooklistActivity.this, "made child", Toast.LENGTH_LONG).show();
                 Book book = dataSnapshot.getValue(Book.class);
                 adapter.addBook(book, dataSnapshot.getKey());
             }
@@ -118,6 +117,14 @@ public class EditBooklistActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void startSelectAddMethodActivity() {
+        Intent intentEditBooklist = new Intent(EditBooklistActivity.this, EditBooklistActivity.class);
+        intentEditBooklist.putExtra(CURR_USER_ID, currUserId);
+        intentEditBooklist.putExtra(CURR_LIST_ID, currListId);
+        startActivity(intentEditBooklist);
+
     }
 
 }

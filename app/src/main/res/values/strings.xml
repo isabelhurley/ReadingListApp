@@ -30,4 +30,10 @@
     <string name="title_notifications">Notifications</string>
     <string name="Menu_activity_title">Shelves</string>
     <string name="no_currListId">No such list recognized</string>
+    <string name="title_back">Back</string>
+    <string name="title_add">Add book</string>
+    <string name="title_delete">Delete list</string>
+    <string name="add_manually">Add manually</string>
+    <string name="search_on_google_books">Search on Google Books</string>
+    <string name="title_activity_select_method">SelectAddMethodActivity</string>
 </resources>

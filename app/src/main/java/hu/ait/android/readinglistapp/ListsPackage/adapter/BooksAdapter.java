@@ -22,6 +22,7 @@ import hu.ait.android.readinglistapp.data.Booklist;
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
 
     public static final String BOOKLISTS = "booklists";
+    public static final String BOOKS = "books";
     public static final String USERS = "users";
 
     private List<Book> bookList;
@@ -44,7 +45,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
                 .getReference(USERS)
                 .child(currUserId)
                 .child(BOOKLISTS)
-                .child(currListId);
+                .child(currListId)
+                .child(BOOKS);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
