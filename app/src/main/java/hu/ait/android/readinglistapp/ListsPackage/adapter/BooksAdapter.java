@@ -95,9 +95,24 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         return bookList.size();
     }
 
+    public void addBook(Book book, String key) {
+        bookList.add(book);
+        bookKeys.add(key);
+        notifyDataSetChanged();
+    }
+
     public void removeBook(int index) {
         booklistRef.child(bookKeys.get(index)).removeValue();
         bookList.remove(index);
         notifyItemRemoved(index);
+    }
+
+    public void removeBookByKey(String key) {
+        int index = bookKeys.indexOf(key);
+        if (index != -1) {
+            bookKeys.remove(index);
+            bookList.remove(index);
+            notifyItemRemoved(index);
+        }
     }
 }
