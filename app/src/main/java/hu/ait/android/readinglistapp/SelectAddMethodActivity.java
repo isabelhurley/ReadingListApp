@@ -4,24 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class SelectAddMethodActivity extends AppCompatActivity {
 
-    public static final String CURR_USER_ID = "currUserId";
-    public static final String CURR_LIST_ID = "currListId";
     public static final String TITLE = "TITLE";
 
-    private String currUserId;
-    private String currListId;
+    public static final String BOOK_TITLE = "BOOK_TITLE";
+    public static final String CURR_USER_ID = "currUserId";
+    public static final String CURR_LIST_ID = "currListId";
 
     private EditText etTitle;
     private Button btnAddMan;
     private Button btnSearchGB;
+    private String currUserId;
+    private String currListId;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,8 +52,19 @@ public class SelectAddMethodActivity extends AppCompatActivity {
         btnSearchGB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SelectAddMethodActivity.this,
-                        "Searching on Google Books...", Toast.LENGTH_LONG).show();
+                if (etTitle.getText().toString().equals("")) {
+                    etTitle.setError(getString(R.string.blank_title_error));
+                } else {
+                    Intent intent = new Intent(SelectAddMethodActivity.this, LoadBooksActivity.class);
+                    intent.putExtra(BOOK_TITLE, etTitle.getText().toString());
+                    intent.putExtra(CURR_USER_ID, currUserId);
+                    intent.putExtra(CURR_LIST_ID, currListId);
+                    Log.d("EXTRA", "put in title " + etTitle.getText().toString());
+                    Log.d("EXTRA", "put in current User ID " + currUserId);
+                    Log.d("EXTRA", "put in current List ID " + currListId);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 

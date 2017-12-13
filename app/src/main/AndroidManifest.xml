@@ -35,7 +35,6 @@
         <activity
             android:name=".EditBooklistActivity"
             android:label="@string/title_activity_edit_booklist" />
-        <activity android:name=".LoadBooksActivity" />
         <activity
             android:name=".SelectAddMethodActivity"
             android:label="@string/title_activity_select_method"
@@ -44,6 +43,7 @@
             android:name=".ManualAddBookActivity"
             android:label="@string/title_activity_add_manually"
             android:theme="@style/Theme.AppCompat.Dialog" />
+        <activity android:name=".LoadBooksActivity"
+            android:label="@string/SearchResults"/>
     </application>
-
 </manifest>

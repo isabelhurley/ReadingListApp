@@ -42,4 +42,8 @@
     <string name="desc">Description</string>
     <string name="add_book">Add book</string>
     <string name="empty_title_error">Title cannot be empty</string>
+    <string name="blank_title_error">Please enter a title</string>
+    <string name="error_msg">ERROR</string>
+    <string name="SearchResults">Search Results</string>
+    <string name="no_title">No title searched</string>
 </resources>

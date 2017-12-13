@@ -27,13 +27,16 @@ public class LoadBooksAdapter extends RecyclerView.Adapter<LoadBooksAdapter.View
     private int lastPosition = -1;
     private List<Book> bookList;
     private List<String> bookKeys;
+    private BooksAdapter booksAdapter;
 
 
-    public LoadBooksAdapter(Context context, List<Book> bookList) {
+    public LoadBooksAdapter(Context context, List<Book> bookList) { //} BooksAdapter booksAdapter) {
         this.context = context;
 
         this.bookList = bookList;
         // bookKeys = new ArrayList<String>();
+
+        //this.booksAdapter = booksAdapter;
 
     }
 
@@ -47,8 +50,8 @@ public class LoadBooksAdapter extends RecyclerView.Adapter<LoadBooksAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Book book = bookList.get(position);
+    public void onBindViewHolder(ViewHolder holder, final int position) {
+        final Book book = bookList.get(position);
 
         holder.tvTitle.setText(book.getTitle());
         holder.tvAuthor.setText(book.getAuthor());
@@ -59,6 +62,15 @@ public class LoadBooksAdapter extends RecyclerView.Adapter<LoadBooksAdapter.View
         } else {
             Glide.with(context).load(book.getUrl()).into(holder.ivCover);
         }
+
+        holder.btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Book newBook = new Book(book.getTitle(), book.getAuthor(), book.getDesc(), book.getUrl());
+                LoadBooksActivity.addBookToFirebase(newBook);
+            }
+        });
+
     }
 
     @Override
@@ -114,6 +126,7 @@ public class LoadBooksAdapter extends RecyclerView.Adapter<LoadBooksAdapter.View
         public TextView tvAuthor;
         public TextView tvDesc;
         public ImageView ivCover;
+        public Button btnAdd;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -121,7 +134,7 @@ public class LoadBooksAdapter extends RecyclerView.Adapter<LoadBooksAdapter.View
             tvAuthor = itemView.findViewById(R.id.tvAuthor);
             tvDesc = itemView.findViewById(R.id.tvDesc);
             ivCover = itemView.findViewById(R.id.ivCover);
-
+            btnAdd = itemView.findViewById(R.id.btnAdd);
         }
     }
 
