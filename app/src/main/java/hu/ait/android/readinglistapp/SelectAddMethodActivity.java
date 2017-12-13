@@ -15,13 +15,12 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 public class SelectAddMethodActivity extends AppCompatActivity {
-
     public static final String TITLE = "TITLE";
+
 
     public static final String BOOK_TITLE = "BOOK_TITLE";
     public static final String CURR_USER_ID = "currUserId";
     public static final String CURR_LIST_ID = "currListId";
-
     private EditText etTitle;
     private Button btnAddMan;
     private Button btnSearchGB;
