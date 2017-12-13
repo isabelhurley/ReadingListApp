@@ -67,7 +67,8 @@ public class LoadBooksAdapter extends RecyclerView.Adapter<LoadBooksAdapter.View
             @Override
             public void onClick(View view) {
                 Book newBook = new Book(book.getTitle(), book.getAuthor(), book.getDesc(), book.getUrl());
-                LoadBooksActivity.addBookToFirebase(newBook);
+                ((LoadBooksActivity)context).addBookToFirebase(newBook);
+
             }
         });
 

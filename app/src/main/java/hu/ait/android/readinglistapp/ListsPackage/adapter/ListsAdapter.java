@@ -3,6 +3,7 @@ package hu.ait.android.readinglistapp.ListsPackage.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +89,7 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-        Booklist booklist = booklistList.get(position);
+        final Booklist booklist = booklistList.get(position);
         viewHolder.tvListName.setText(booklist.getListName());
 
         viewHolder.ivEditBooklist.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +97,7 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
             public void onClick(View view) {
                 // TODO booklistKey correct?
                 String booklistKey = booklistKeys.get(position);
-                ((MenuActivity) context).startEditBooklistActivity(booklistKey);
+                ((MenuActivity) context).startEditBooklistActivity(booklistKey, booklist.getListName());
             }
         });
 
@@ -137,14 +138,15 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
     }
 
     public void removeBooklist(int index) {
-
-        booklistRef.child("booklists").child(booklistKeys.get(index)).removeValue();
+        booklistRef.child(booklistKeys.get(index)).removeValue();
         booklistKeys.remove(index);
         booklistList.remove(index);
         notifyItemRemoved(index);
 
     }
     public void removeBooklistByKey(String key) {
+        booklistRef.child(key).removeValue();
+        Log.d("EXTRA", "entered method");
         int index = booklistKeys.indexOf(key);
         if (index != -1) {
             booklistKeys.remove(index);

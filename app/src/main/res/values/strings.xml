@@ -46,4 +46,6 @@
     <string name="error_msg">ERROR</string>
     <string name="SearchResults">Search Results</string>
     <string name="no_title">No title searched</string>
+    <string name="read">Read!</string>
+    <string name="done">Done!</string>
 </resources>
