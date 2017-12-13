@@ -130,9 +130,7 @@ public class LoadBooksActivity extends AppCompatActivity {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("users")
                 .child(currUserId).child("booklists").child(currListId).child("books");
         String key = databaseRef.push().getKey();
-        //String text = etNewList.getText().toString();
 
-        /*
         databaseRef
                 .child(key)
                 .setValue(book)
@@ -143,7 +141,7 @@ public class LoadBooksActivity extends AppCompatActivity {
                     }
 
                 });
-                */
+                
 
     }
 
