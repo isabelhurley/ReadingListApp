@@ -1,6 +1,7 @@
 package hu.ait.android.readinglistapp;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
@@ -126,7 +127,7 @@ public class LoadBooksActivity extends AppCompatActivity {
     }
 
 
-    public static void addBookToFirebase(Book book) {
+    public void addBookToFirebase(Book book) {
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference("users")
                 .child(currUserId).child("booklists").child(currListId).child("books");
         String key = databaseRef.push().getKey();
@@ -137,16 +138,12 @@ public class LoadBooksActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        //... NEED TO FINISH THE LOAD BOOKS ACTIVITY
+                        //Snackbar.make(context, "Book added successfully!", Snackbar.LENGTH_SHORT);
+                        finish();
                     }
 
                 });
-                
-
     }
-
-
-
 
 
 }

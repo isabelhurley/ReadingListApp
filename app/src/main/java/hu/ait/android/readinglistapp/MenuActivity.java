@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,8 @@ public class MenuActivity extends AppCompatActivity {
     public static final String CURR_LIST_ID = "currListId";
     public static final String BOOKLISTS = "booklists";
     public static final String USERS = "users";
+    public static final String LIST_NAME = "LIST_NAME";
+    public static final int REQUEST_CODE = 1;
 
     private ListsAdapter adapter;
     private String currUserId;
@@ -45,6 +48,7 @@ public class MenuActivity extends AppCompatActivity {
         } else {
             Toast.makeText(MenuActivity.this, R.string.no_currUserId, Toast.LENGTH_SHORT).show();
         }
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.Menu_activity_title);
@@ -70,6 +74,7 @@ public class MenuActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         initBooklistListener();
+
     }
 
     private void initBooklistListener() {
@@ -130,11 +135,22 @@ public class MenuActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void startEditBooklistActivity(String booklistKey) {
+    public void startEditBooklistActivity(String booklistKey, String booklistName) {
         Intent intentEditBooklist = new Intent(MenuActivity.this, EditBooklistActivity.class);
         intentEditBooklist.putExtra(CURR_USER_ID, currUserId);
         intentEditBooklist.putExtra(CURR_LIST_ID, booklistKey);
-        startActivity(intentEditBooklist);
+        intentEditBooklist.putExtra(LIST_NAME, booklistName);
+        startActivityForResult(intentEditBooklist, REQUEST_CODE);
+    }
 
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode == RESULT_OK) {
+                String keyToDelete = data.getStringExtra(EditBooklistActivity.LIST_TO_DELETE);
+                Log.d("EXTRA", "received ID " + keyToDelete);
+                adapter.removeBooklistByKey(keyToDelete);
+            }
+        }
     }
 }

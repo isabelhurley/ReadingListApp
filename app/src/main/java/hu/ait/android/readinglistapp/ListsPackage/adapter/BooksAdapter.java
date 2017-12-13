@@ -2,6 +2,7 @@ package hu.ait.android.readinglistapp.ListsPackage.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -62,7 +64,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvAuthor = itemView.findViewById(R.id.tvAuthor);
             tvDesc = itemView.findViewById(R.id.tvDesc);
-            btnDelBook = itemView.findViewById(R.id.btnDelBook);
+            btnDelBook = itemView.findViewById(R.id.btnDelete);
         }
 
     }
@@ -90,6 +92,12 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
             }
         });
 
+        if (book.getUrl().equals("")) {
+            viewHolder.ivCover.setImageResource(R.drawable.book);
+        } else {
+            Glide.with(context).load(book.getUrl()).into(viewHolder.ivCover);
+        }
+
     }
 
     @Override
@@ -105,11 +113,15 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
 
     public void removeBook(int index) {
         booklistRef.child(bookKeys.get(index)).removeValue();
+        Log.d("EXTRA", "Im also here ");
         bookList.remove(index);
+        bookKeys.remove(index);
         notifyItemRemoved(index);
     }
 
     public void removeBookByKey(String key) {
+        //booklistRef.child(key).removeValue();
+        Log.d("EXTRA", "IM HERE BITCHES");
         int index = bookKeys.indexOf(key);
         if (index != -1) {
             bookKeys.remove(index);

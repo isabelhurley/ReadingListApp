@@ -7,6 +7,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +30,8 @@ public class EditBooklistActivity extends AppCompatActivity {
     public static final String BOOKS = "books";
     public static final String BOOKLISTS = "booklists";
     public static final String USERS = "users";
+    public static final String LIST_TO_DELETE = "LIST_TO_DELETE";
+    public static final int EDIT_LIST_CODE = 1;
 
     private BooksAdapter adapter;
     private String currUserId;
@@ -47,6 +51,7 @@ public class EditBooklistActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_delete:
                     mTextMessage.setText("Delete list");
+                    deleteCurrentList();
                     return true;
             }
             return false;
@@ -64,11 +69,13 @@ public class EditBooklistActivity extends AppCompatActivity {
         } else {
             Toast.makeText(EditBooklistActivity.this, R.string.no_currUserId, Toast.LENGTH_SHORT).show();
         }
-
         if (getIntent().hasExtra(CURR_LIST_ID)) {
             currListId = getIntent().getStringExtra(CURR_LIST_ID);
         } else {
             Toast.makeText(EditBooklistActivity.this, R.string.no_currListId, Toast.LENGTH_SHORT).show();
+        }
+        if (getIntent().hasExtra(MenuActivity.LIST_NAME)) {
+            setTitle(getIntent().getStringExtra(MenuActivity.LIST_NAME));
         }
 
         mTextMessage = (TextView) findViewById(R.id.message);
@@ -125,6 +132,14 @@ public class EditBooklistActivity extends AppCompatActivity {
         intentSelectAddMethod.putExtra(CURR_LIST_ID, currListId);
         startActivity(intentSelectAddMethod);
 
+    }
+
+    public void deleteCurrentList() {
+        Intent intentDelete = new Intent();
+        intentDelete.putExtra(LIST_TO_DELETE, currListId);
+        Log.d("EXTRA", "put in list ID " + currListId);
+        setResult(RESULT_OK, intentDelete);
+        finish();
     }
 
 }
