@@ -58,18 +58,13 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tvListName;
-        public Button btnDelete;
-        public Button btnEdit;
         public ImageView ivEditBooklist;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvListName = (TextView) itemView.findViewById(R.id.tvListName);
             ivEditBooklist = itemView.findViewById(R.id.ivEditBooklist);
-            btnDelete = (Button) itemView.findViewById(R.id.btnDelete);
-            btnEdit = (Button) itemView.findViewById(R.id.btnEdit);
         }
-
     }
 
 
