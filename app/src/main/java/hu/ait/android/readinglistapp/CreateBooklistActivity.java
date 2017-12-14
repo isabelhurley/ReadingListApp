@@ -46,7 +46,6 @@ public class CreateBooklistActivity extends AppCompatActivity {
         String key = databaseRef.push().getKey();
         String text = etNewList.getText().toString();
         if (TextUtils.isEmpty(text)) {
-            Toast.makeText(CreateBooklistActivity.this, "No Booklist added", Toast.LENGTH_SHORT).show();
             finish();
         }
         Booklist newBooklist = new Booklist(text);
@@ -57,7 +56,6 @@ public class CreateBooklistActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(CreateBooklistActivity.this, "Booklist created", Toast.LENGTH_SHORT).show();
                 finish();
             }
         });
