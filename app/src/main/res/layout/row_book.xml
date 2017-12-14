@@ -12,13 +12,14 @@
   
         <TextView
             android:id="@+id/tvTitle"
-            android:text="Title"
+            android:text="@string/ex_title"
             android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#000000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/ivCover"
+            android:layout_toStartOf="@+id/ivCover"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="5dp"
@@ -27,7 +28,7 @@
 
         <TextView
             android:id="@+id/tvAuthor"
-            android:text="Author"
+            android:text="@string/ex_author"
             android:textSize="12sp"
             android:textColor="#3d3d3d"
             android:textStyle="italic"
@@ -35,6 +36,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/ivCover"
+            android:layout_toStartOf="@+id/ivCover"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_marginStart="5dp"
@@ -50,24 +52,32 @@
 
         <Button
             android:id="@+id/btnAdd"
-            android:text="Add"
+            android:text="@string/add"
             android:textSize="12sp"
             android:layout_width="60sp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ivCover"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
 
-        <TextView
-            android:id="@+id/tvDesc"
-            android:text="example text this is really long it will run into the end  nnnn nnnnnn nnnnn nnnnnn njjjjj jjjj jjjj jjjjjjjjjjjjj"
+        <ScrollView
+            android:id="@+id/child_scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="100sp"
             android:layout_below="@+id/tvAuthor"
-            android:layout_toLeftOf="@+id/ivCover"
+            android:layout_toLeftOf="@+id/btnAdd"
+            android:layout_toStartOf="@+id/btnAdd"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:layout_marginLeft="5dp"/>
+            android:layout_marginBottom="8dp">
+            <TextView
+                android:id="@+id/tvDesc"
+                android:text="@string/example_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"/>
+        </ScrollView>
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

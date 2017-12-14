@@ -1,7 +1,6 @@
 package hu.ait.android.readinglistapp.ListsPackage.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,13 +17,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import butterknife.OnClick;
-import hu.ait.android.readinglistapp.EditBooklistActivity;
 import hu.ait.android.readinglistapp.MenuActivity;
 import hu.ait.android.readinglistapp.R;
 import hu.ait.android.readinglistapp.data.Booklist;
-
-import static java.security.AccessController.getContext;
 
 public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> {
 
@@ -71,7 +66,6 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
             super(itemView);
             tvListName = (TextView) itemView.findViewById(R.id.tvListName);
             ivEditBooklist = itemView.findViewById(R.id.ivEditBooklist);
-
             btnDelete = (Button) itemView.findViewById(R.id.btnDelete);
             btnEdit = (Button) itemView.findViewById(R.id.btnEdit);
         }
@@ -134,7 +128,6 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
     public void updateBooklist(int index, Booklist booklist) {
         booklistList.set(index, booklist);
         notifyItemChanged(index);
-
     }
 
     public void removeBooklist(int index) {
@@ -146,7 +139,6 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
     }
     public void removeBooklistByKey(String key) {
         booklistRef.child(key).removeValue();
-        Log.d("EXTRA", "entered method");
         int index = booklistKeys.indexOf(key);
         if (index != -1) {
             booklistKeys.remove(index);

@@ -48,4 +48,8 @@
     <string name="no_title">No title searched</string>
     <string name="read">Read!</string>
     <string name="done">Done!</string>
+    <string name="example_text">example text this is really long it will run into the end abcdefghi jklmnop qrs tuv wxyz now I know my abcs next time wont you sing with me twinkle twingkle little star how i wonder what you are up above the world so high like a diamond in the sky twinkle twinkle little star how I wonder what you are nnnn nnnnnn nnnnn nnnnnn njjjjj jjjj jjjj jjjjjjjjjjjjj</string>
+    <string name="ex_author">Author</string>
+    <string name="ex_title">Title</string>
+    <string name="add">Add</string>
 </resources>
