@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
@@ -58,9 +60,7 @@ public class MenuActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 startActivity(new Intent(MenuActivity.this, CreateBooklistActivity.class));
-                Snackbar.make(view, "Add a new booklist", Snackbar.LENGTH_LONG);
             }
         });
 
@@ -83,7 +83,6 @@ public class MenuActivity extends AppCompatActivity {
         reference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Toast.makeText(MenuActivity.this, "made child", Toast.LENGTH_LONG).show();
                 Booklist booklist = dataSnapshot.getValue(Booklist.class);
                 adapter.addBooklist(booklist, dataSnapshot.getKey());
             }
@@ -148,7 +147,6 @@ public class MenuActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
                 String keyToDelete = data.getStringExtra(EditBooklistActivity.LIST_TO_DELETE);
-                Log.d("EXTRA", "received ID " + keyToDelete);
                 adapter.removeBooklistByKey(keyToDelete);
             }
         }
