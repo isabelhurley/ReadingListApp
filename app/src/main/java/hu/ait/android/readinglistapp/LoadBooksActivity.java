@@ -32,6 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoadBooksActivity extends AppCompatActivity {
 
+    public static final String GOOGLEAPIS_COM_BOOKS = "https://www.googleapis.com/books/v1/";
     private RecyclerView recyclerContent;
     private Button btnRequest;
     private TextView errorMsg;
@@ -45,7 +46,6 @@ public class LoadBooksActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.d("EXTRA", "created");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_books);
 
@@ -68,19 +68,15 @@ public class LoadBooksActivity extends AppCompatActivity {
         }
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://www.googleapis.com/books/v1/")
+                .baseUrl(GOOGLEAPIS_COM_BOOKS)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         final BooksAPI booksAPI = retrofit.create(BooksAPI.class);
-
-        Log.d("EXTRA", "created booksAPI");
-
         loadBooks(title, booksAPI);
     }
 
     private void loadBooks(String title, BooksAPI booksAPI) {
-        Log.d("EXTRA", "loading title " + title);
         Call<BooksResult> call = booksAPI.getBookByName(title, API_KEY);
 
         call.enqueue(new Callback<BooksResult>() {
@@ -134,7 +130,6 @@ public class LoadBooksActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        //Snackbar.make(context, "Book added successfully!", Snackbar.LENGTH_SHORT);
                         finish();
                     }
 

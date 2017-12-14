@@ -27,7 +27,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
             <EditText android:id="@+id/etEmail"
-                android:text="dev_user@yahoo.com"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -42,7 +41,6 @@
             app:passwordToggleEnabled="true">
 
             <EditText android:id="@+id/etPassword"
-                android:text="123456"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"

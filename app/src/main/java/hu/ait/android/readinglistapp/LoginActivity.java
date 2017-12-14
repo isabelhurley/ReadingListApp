@@ -73,11 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                             );
                             User newUser = new User(fbUser.getUid(), fbUser.getDisplayName(), fbUser.getEmail());
                             databaseReference.child(USERS).child(fbUser.getUid()).setValue(newUser);
-
-                            Toast.makeText(LoginActivity.this,
-                                    "Registration ok", Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(LoginActivity.this, "Error: " +
+                            Toast.makeText(LoginActivity.this, getString(R.string.error)+
                                     task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -111,7 +108,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 } else {
                     Toast.makeText(LoginActivity.this,
-                            "Error: "+task.getException().getMessage(),
+                            getString(R.string.error)+task.getException().getMessage(),
                             Toast.LENGTH_SHORT).show();
                 }
             }
@@ -119,7 +116,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(LoginActivity.this,
-                        "Error: "+e.getMessage(),
+                        getString(R.string.error)+e.getMessage(),
                         Toast.LENGTH_SHORT).show();
 
                 e.printStackTrace();
@@ -132,7 +129,7 @@ public class LoginActivity extends AppCompatActivity {
     private void showProgressDialog() {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Wait for it...");
+            progressDialog.setMessage(getString(R.string.wait));
         }
 
         progressDialog.show();
@@ -141,12 +138,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean isFormValid() {
         if (TextUtils.isEmpty(etEmail.getText())) {
-            etEmail.setError("The email cannot be empty");
+            etEmail.setError(getString(R.string.error_empty_email));
             return false;
         }
 
         if (TextUtils.isEmpty(etPassword.getText())) {
-            etPassword.setError("The password cannot be empty");
+            etPassword.setError(getString(R.string.error_empty_password));
             return false;
         }
 
@@ -155,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private String usernameFromEmail(String email) {
-        if (email.contains("@")) {
+        if (email.contains(getString(R.string.at))) {
             return email.split("@")[0];
         } else {
             return email;

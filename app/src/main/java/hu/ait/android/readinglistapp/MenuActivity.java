@@ -49,7 +49,6 @@ public class MenuActivity extends AppCompatActivity {
             Toast.makeText(MenuActivity.this, R.string.no_currUserId, Toast.LENGTH_SHORT).show();
         }
 
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(R.string.Menu_activity_title);
         setSupportActionBar(toolbar);
@@ -72,7 +71,6 @@ public class MenuActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         initBooklistListener();
-
     }
 
     private void initBooklistListener() {
