@@ -19,7 +19,6 @@ import java.util.List;
 
 import hu.ait.android.readinglistapp.R;
 import hu.ait.android.readinglistapp.data.Book;
-import hu.ait.android.readinglistapp.data.Booklist;
 
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
 
@@ -66,7 +65,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
             tvDesc = itemView.findViewById(R.id.tvDesc);
             btnDelBook = itemView.findViewById(R.id.btnDelete);
         }
-
     }
 
     @Override
@@ -79,7 +77,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
-
         Book book = bookList.get(position);
         viewHolder.tvTitle.setText(book.getTitle());
         viewHolder.tvAuthor.setText(book.getAuthor());
@@ -113,15 +110,13 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
 
     public void removeBook(int index) {
         booklistRef.child(bookKeys.get(index)).removeValue();
-        Log.d("EXTRA", "Im also here ");
         bookList.remove(index);
         bookKeys.remove(index);
         notifyItemRemoved(index);
     }
 
     public void removeBookByKey(String key) {
-        //booklistRef.child(key).removeValue();
-        Log.d("EXTRA", "IM HERE BITCHES");
+        booklistRef.child(key).removeValue();
         int index = bookKeys.indexOf(key);
         if (index != -1) {
             bookKeys.remove(index);

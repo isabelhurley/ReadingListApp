@@ -8,8 +8,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import hu.ait.android.readinglistapp.ListsPackage.adapter.BooksAdapter;
 import hu.ait.android.readinglistapp.data.Book;
-import hu.ait.android.readinglistapp.data.Booklist;
 
 public class EditBooklistActivity extends AppCompatActivity {
 
@@ -37,6 +38,9 @@ public class EditBooklistActivity extends AppCompatActivity {
     private String currUserId;
     private String currListId;
 
+    private RecyclerView parentScroll;
+    private ScrollView childScroll;
+
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -46,11 +50,9 @@ public class EditBooklistActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_add:
-                    mTextMessage.setText("Add book");
                     startSelectAddMethodActivity();
                     return true;
                 case R.id.navigation_delete:
-                    mTextMessage.setText("Delete list");
                     deleteCurrentList();
                     return true;
             }
@@ -90,6 +92,7 @@ public class EditBooklistActivity extends AppCompatActivity {
         layoutManager.setStackFromEnd(true);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
 
         initBookListener();
     }
@@ -137,7 +140,6 @@ public class EditBooklistActivity extends AppCompatActivity {
     public void deleteCurrentList() {
         Intent intentDelete = new Intent();
         intentDelete.putExtra(LIST_TO_DELETE, currListId);
-        Log.d("EXTRA", "put in list ID " + currListId);
         setResult(RESULT_OK, intentDelete);
         finish();
     }

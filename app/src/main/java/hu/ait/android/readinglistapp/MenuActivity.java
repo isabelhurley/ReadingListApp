@@ -24,9 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import hu.ait.android.readinglistapp.ListsPackage.adapter.ListsAdapter;
-import hu.ait.android.readinglistapp.ListsPackage.adapter.LoadBooksAdapter;
 import hu.ait.android.readinglistapp.data.Booklist;
-import hu.ait.android.readinglistapp.data.User;
 
 public class MenuActivity extends AppCompatActivity {
 

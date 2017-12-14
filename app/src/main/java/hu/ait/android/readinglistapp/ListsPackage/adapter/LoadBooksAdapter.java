@@ -11,14 +11,12 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import hu.ait.android.readinglistapp.LoadBooksActivity;
 import hu.ait.android.readinglistapp.R;
 import hu.ait.android.readinglistapp.data.Book;
-import hu.ait.android.readinglistapp.data.Booklist;
 
 public class LoadBooksAdapter extends RecyclerView.Adapter<LoadBooksAdapter.ViewHolder> {
 
