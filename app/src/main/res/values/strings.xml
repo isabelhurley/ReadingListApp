@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ReadingListApp</string>
+    <string name="app_name">BookMe</string>
 
     <string name="logout">Logout</string>
     <string name="delete">Delete</string>
