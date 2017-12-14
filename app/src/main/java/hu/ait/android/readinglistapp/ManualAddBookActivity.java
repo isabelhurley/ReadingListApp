@@ -89,8 +89,6 @@ public class ManualAddBookActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    Toast.makeText(ManualAddBookActivity.this,
-                                            "Book added", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                             });

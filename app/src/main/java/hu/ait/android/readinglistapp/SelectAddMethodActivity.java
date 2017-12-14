@@ -58,9 +58,6 @@ public class SelectAddMethodActivity extends AppCompatActivity {
                     intent.putExtra(BOOK_TITLE, etTitle.getText().toString());
                     intent.putExtra(CURR_USER_ID, currUserId);
                     intent.putExtra(CURR_LIST_ID, currListId);
-                    Log.d("EXTRA", "put in title " + etTitle.getText().toString());
-                    Log.d("EXTRA", "put in current User ID " + currUserId);
-                    Log.d("EXTRA", "put in current List ID " + currListId);
                     startActivity(intent);
                     finish();
                 }

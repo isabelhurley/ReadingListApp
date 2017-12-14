@@ -28,14 +28,9 @@ public class LoadBooksAdapter extends RecyclerView.Adapter<LoadBooksAdapter.View
     private BooksAdapter booksAdapter;
 
 
-    public LoadBooksAdapter(Context context, List<Book> bookList) { //} BooksAdapter booksAdapter) {
+    public LoadBooksAdapter(Context context, List<Book> bookList) {
         this.context = context;
-
         this.bookList = bookList;
-        // bookKeys = new ArrayList<String>();
-
-        //this.booksAdapter = booksAdapter;
-
     }
 
 
@@ -92,13 +87,6 @@ public class LoadBooksAdapter extends RecyclerView.Adapter<LoadBooksAdapter.View
         bookKeys.remove(index);
         bookList.remove(index);
         notifyItemRemoved(index);
-
-        /*
-        booklistRef.child("booklists").child(booklistKeys.get(index)).removeValue();
-        booklistKeys.remove(index);
-        booklistList.remove(index);
-        notifyItemRemoved(index);
-        */
     }
 
     public void swapBooks(int oldPosition, int newPosition) {
@@ -117,7 +105,6 @@ public class LoadBooksAdapter extends RecyclerView.Adapter<LoadBooksAdapter.View
     public Book getBook(int i) {
         return bookList.get(i);
     }
-
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

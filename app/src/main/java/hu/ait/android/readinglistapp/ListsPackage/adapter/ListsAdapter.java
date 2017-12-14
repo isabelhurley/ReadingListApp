@@ -89,26 +89,8 @@ public class ListsAdapter extends RecyclerView.Adapter<ListsAdapter.ViewHolder> 
         viewHolder.ivEditBooklist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // TODO booklistKey correct?
                 String booklistKey = booklistKeys.get(position);
                 ((MenuActivity) context).startEditBooklistActivity(booklistKey, booklist.getListName());
-            }
-        });
-
-        viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //TODO get rid of these buttons and listeners
-                removeBooklist(viewHolder.getAdapterPosition());
-            }
-        });
-        viewHolder.btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { //change to tv OnClickListener TODO
-                /*
-                ((MainActivity) context).showEditBooklistActivity(
-                        booklistList.get(viewHolder.getAdapterPosition()).getPlaceID(),
-                        viewHolder.getAdapterPosition());
-                        */
             }
         });
 
